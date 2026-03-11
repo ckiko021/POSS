@@ -33,7 +33,7 @@ class POSLayout(BoxLayout):
         scan_button.bind(on_press=self.scan_product)
 
         checkout_button = Button(text="CHECKOUT")
-
+        checkout_button.bind(on_press=self.checkout)
         button_layout.add_widget(scan_button)
         button_layout.add_widget(checkout_button)
 
@@ -77,4 +77,5 @@ class POSLayout(BoxLayout):
 
 class POSApp(App):
     def build(self):
+
         return POSLayout()
