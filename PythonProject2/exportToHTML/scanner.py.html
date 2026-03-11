@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>scanner.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+.s4 { color: #7a7e85;}
+.s5 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+scanner.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">cv2</span>
+<span class="s0">from </span><span class="s1">pyzbar</span><span class="s2">.</span><span class="s1">pyzbar </span><span class="s0">import </span><span class="s1">decode</span>
+
+<span class="s0">def </span><span class="s1">scan_barcode</span><span class="s2">():</span>
+
+    <span class="s1">cap </span><span class="s2">= </span><span class="s1">cv2</span><span class="s2">.</span><span class="s1">VideoCapture</span><span class="s2">(</span><span class="s3">0</span><span class="s2">)</span>
+
+    <span class="s0">while True</span><span class="s2">:</span>
+
+        <span class="s1">ret</span><span class="s2">, </span><span class="s1">frame </span><span class="s2">= </span><span class="s1">cap</span><span class="s2">.</span><span class="s1">read</span><span class="s2">()</span>
+
+        <span class="s0">for </span><span class="s1">barcode </span><span class="s0">in </span><span class="s1">decode</span><span class="s2">(</span><span class="s1">frame</span><span class="s2">):</span>
+
+            <span class="s1">x</span><span class="s2">, </span><span class="s1">y</span><span class="s2">, </span><span class="s1">w</span><span class="s2">, </span><span class="s1">h </span><span class="s2">= </span><span class="s1">barcode</span><span class="s2">.</span><span class="s1">rect</span>
+
+            <span class="s4"># Draw green rectangle</span>
+            <span class="s1">cv2</span><span class="s2">.</span><span class="s1">rectangle</span><span class="s2">(</span><span class="s1">frame</span><span class="s2">, (</span><span class="s1">x</span><span class="s2">, </span><span class="s1">y</span><span class="s2">), (</span><span class="s1">x</span><span class="s2">+</span><span class="s1">w</span><span class="s2">, </span><span class="s1">y</span><span class="s2">+</span><span class="s1">h</span><span class="s2">), (</span><span class="s3">0</span><span class="s2">,</span><span class="s3">255</span><span class="s2">,</span><span class="s3">0</span><span class="s2">), </span><span class="s3">2</span><span class="s2">)</span>
+
+            <span class="s1">barcode_data </span><span class="s2">= </span><span class="s1">barcode</span><span class="s2">.</span><span class="s1">data</span><span class="s2">.</span><span class="s1">decode</span><span class="s2">(</span><span class="s5">&quot;utf-8&quot;</span><span class="s2">)</span>
+
+            <span class="s1">cap</span><span class="s2">.</span><span class="s1">release</span><span class="s2">()</span>
+            <span class="s1">cv2</span><span class="s2">.</span><span class="s1">destroyAllWindows</span><span class="s2">()</span>
+
+            <span class="s0">return </span><span class="s1">barcode_data</span>
+
+        <span class="s1">cv2</span><span class="s2">.</span><span class="s1">imshow</span><span class="s2">(</span><span class="s5">&quot;POS Scanner&quot;</span><span class="s2">, </span><span class="s1">frame</span><span class="s2">)</span>
+
+        <span class="s0">if </span><span class="s1">cv2</span><span class="s2">.</span><span class="s1">waitKey</span><span class="s2">(</span><span class="s3">1</span><span class="s2">) == </span><span class="s3">27</span><span class="s2">:</span>
+            <span class="s0">break</span>
+
+    <span class="s1">cap</span><span class="s2">.</span><span class="s1">release</span><span class="s2">()</span>
+    <span class="s1">cv2</span><span class="s2">.</span><span class="s1">destroyAllWindows</span><span class="s2">()</span></pre>
+</body>
+</html>
